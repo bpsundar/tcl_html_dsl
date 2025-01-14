@@ -31,8 +31,8 @@ set card_styles {
     }
 }
 ```
-* No External Dependencies: Pure TCL implementation with no runtime dependencies
-* Server-Side Rendering: Generate complete HTML without client-side JavaScript
+* No External Dependencies: Pure TCL implementation with no dependencies
+* Custom Elements: Generate complete HTML without client-side JavaScript
 * Theme Support: CSS custom properties for easy theming
 * Modular Design: Components can be split into separate files and sourced as needed
 
@@ -63,7 +63,7 @@ return [html {} $header $body]
 ```
 ## Benefits
 
-* Lightweight alternative to full web frameworks
+* No separate template language to learn!
 * Component-based development without JavaScript
 * Clean separation of concerns
 * Easy to maintain and extend
