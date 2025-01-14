@@ -61,6 +61,25 @@ set body [body {} \
 
 return [html {} $header $body]
 ```
+```html
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>My Page</title>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="nav-menu">
+        <a class="nav-link active" href="#">Overview</a>
+        <a class="nav-link" href="#">Analytics</a>
+        <a class="nav-link" href="#">Reports</a>
+        <a class="nav-link" href="#">Settings</a>
+      </nav>
+      <p>Howdy, Stranger!</p>
+    </div>
+  </body>
+</html>
+```
 ## Benefits
 
 * No separate template language to learn!
