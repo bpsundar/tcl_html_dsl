@@ -1,6 +1,6 @@
 # TCL HTML DSL
 A lightweight, composable DSL for generating HTML in TCL with encapsulated styling and modular components.  
-Live Demo: [Landing Page](http://139.84.220.21:8000/) [Dashboard](http://139.84.220.21:8000/card) [404](http://139.84.220.21:8000/ca)
+Live Demo: [Demo Page](http://139.84.220.21:8000/) [404](http://139.84.220.21:8000/ca)
 ## Key Features
 
 * Component-Based Architecture: Build reusable, self-contained components with encapsulated styles
