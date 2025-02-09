@@ -1,6 +1,6 @@
 # TCL HTML DSL
 A lightweight, composable DSL for generating Web UI in TCL with encapsulated styling and modular components.  
-Live Demo: [Demo Page](http://139.84.220.21:8000/) [404](http://139.84.220.21:8000/ca)
+Demo: [Demo Page](http://139.84.220.21:8000/) [404](http://139.84.220.21:8000/ca)
 
 
 Disclaimer: Except HTMX, no js was harmed while rendering these pages ;-)
