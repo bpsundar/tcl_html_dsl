@@ -32,7 +32,7 @@ ns_section ns/server/default/module/nssock {
 }
 
 ns_section ns/server/default/fastpath {
-    ns_param pagedir /home/void/Downloads/code/tcl/hot-glue/mytest
+    ns_param pagedir /home/tcl/mytest
     ns_param directoryfile "routes.tcl"
 }
 ns_section "ns/server/default/module/websocket/live-reload" {
