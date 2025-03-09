@@ -1,7 +1,7 @@
 # TCL HTML DSL
-An event-driven app model with modular components<sup>++</sup> (encapsulated styling), Datastar-driven SSE for HATEOAS reactivity, all served by Naviserver in pure Tcl.
+An event-driven app model with modular components<sup>++</sup>, Datastar-driven SSE for HATEOAS reactivity, all served by Naviserver in pure Tcl.
 
-<sup>++</sup>A lightweight, composable DSL for generating Web UI.  
+<sup>++</sup>A lightweight, composable DSL with encapsulated styling for generating Web UI.  
 Demo: [Demo Page](http://139.84.220.21:8000/)
 
 Check out the todo app also.
