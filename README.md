@@ -10,7 +10,9 @@ Disclaimer: Except HTMX and Data-*, no js was harmed while rendering these pages
 
 ## Key Features
 
-* Event driven through an Actor Model (at least that is what I think :)
+* Event driven through an Actor Model (at least that is what I think :) turns server requests into events, decoupled from immediate execution, queued for async handling.
+
+
 ```tcl
 oo::class create Actor {
     variable mailbox behavior name
