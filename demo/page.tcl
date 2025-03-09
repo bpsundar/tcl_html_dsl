@@ -1,7 +1,91 @@
+#### Actor
+oo::class create Actor {
+    variable mailbox behavior name
+
+    constructor {actorName initialBehavior} {
+	set name $actorName
+	set behavior $initialBehavior
+	set mailbox {}
+	my spawn
+    }
+
+    method spawn {} {
+	coroutine ::$name [self] run
+    }
+
+    method run {} {
+	while 1 {
+	    if {[llength $mailbox] == 0} {
+		yield
+	    } else {
+		set message [lindex $mailbox 0]
+		set mailbox [lrange $mailbox 1 end]
+		{*}$behavior {*}$message
+	    }
+	}
+    }
+
+    method send {message} {
+	lappend mailbox $message
+	if {[info coroutine] ne "::$name"} {
+	    ::$name
+	}
+    }
+
+    method become {newBehavior} {
+	set behavior $newBehavior
+    }
+}
+
 #### namespace
 namespace eval mytest {
     variable path [ns_server pagedir]
     source ${path}/views/wms_css.tcl
+}
+
+namespace eval events {
+    variable eventManager [Actor new coro-todo events::process_events]
+    proc process_events {url met id} {
+	switch -glob $url {
+	    "/tab/*" {mytest::tab_page [lindex [split $url /] end]}
+	    "/sse" {
+		if {$met eq "GET"} {
+		    ::todoapp::sse_handler
+		} elseif {$met eq "POST"} {
+		    # Get the id from query params
+		    ::todoapp::post_handler $id
+		} elseif {$met eq "DELETE"} {
+		    ::todoapp::delete_handler $id
+		}
+	    }
+	    "/todo" {todo}
+	    "/" {mytest::wms_page}
+	    default {
+		not_found_page
+	    }
+	}
+    }
+}
+
+namespace eval middleware {
+    variable rate_limit_actor [Actor new coro_rate_limit middleware::browser_tracking_filter]
+    proc browser_tracking_filter {cookie} {
+	variable url [ns_conn url]
+	variable met [ns_conn method]
+	variable id [ns_queryget id]
+	puts "$met $url $id"
+
+	variable count
+	dict incr count $cookie
+	puts [dict get $count $cookie]
+	if {[dict get $count $cookie] > 50} {
+	    #rate limiting logic
+	    $::events::eventManager send [list "/404" $met $id]
+	} else {
+	    # no worries, go ahead
+	    $::events::eventManager send [list $url $met $id]
+	}
+    }
 }
 
 #### todo
