@@ -1,12 +1,56 @@
 # TCL HTML DSL
-A lightweight, composable DSL for generating Web UI in TCL with encapsulated styling and modular components.  
+An event-driven app model with modular components<sup>++</sup> (encapsulated styling), Datastar-driven SSE for HATEOAS reactivity, all served by Naviserver in pure Tcl.
+
+<sup>++</sup>A lightweight, composable DSL for generating Web UI.  
 Demo: [Demo Page](http://139.84.220.21:8000/)
 
-Check out the todo app also using Data-* SSE
+Check out the todo app also.
 
 Disclaimer: Except HTMX and Data-*, no js was harmed while rendering these pages ;-)
 
 ## Key Features
+
+* Event driven through an Actor Model (at least that is what I think :)
+```tcl
+oo::class create Actor {
+    variable mailbox behavior name
+
+    constructor {actorName initialBehavior} {
+	set name $actorName
+	set behavior $initialBehavior
+	set mailbox {}
+	my spawn
+    }
+
+    method spawn {} {
+	coroutine ::$name [self] run
+    }
+
+    method run {} {
+	while 1 {
+	    if {[llength $mailbox] == 0} {
+		yield
+	    } else {
+		set message [lindex $mailbox 0]
+		set mailbox [lrange $mailbox 1 end]
+		{*}$behavior {*}$message
+	    }
+	}
+    }
+
+    method send {message} {
+	lappend mailbox $message
+	if {[info coroutine] ne "::$name"} {
+	    ::$name
+	}
+    }
+
+    method become {newBehavior} {
+	set behavior $newBehavior
+    }
+}
+```
+
 
 * Component-Based Architecture: Build reusable, self-contained components with encapsulated styles
 
