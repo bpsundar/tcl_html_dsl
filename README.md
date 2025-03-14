@@ -73,13 +73,27 @@ set main [main {} \
 ```
 * Scoped Styling: CSS is scoped to components, preventing style leaks
 ```tcl
-set card_styles {
-    .card {
-        background: white;
-        border-radius: 8px;
-        padding: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
+proc render_cards {css cards_data} {
+    # Single wrapper div with the shared styles
+    lassign [scope_css $css] scoped_css container_class
+    div [list class "card-grid $container_class"] \
+	[style {} {
+	    .card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		padding: 2rem;
+	    }
+	}] \
+        [style {} $scoped_css] \
+        {*}[lmap card $cards_data {
+	    dict with card {}
+	    article {class "card"} \
+                [h3 {class "card-title"} $title] \
+                [div {class "card-content"} $body] \
+		[expr {$footer ne "" ?
+		       [div {class "card-footer"} $footer] : ""}]
+        }]
 }
 ```
 * No External Dependencies: Pure TCL implementation with no dependencies
