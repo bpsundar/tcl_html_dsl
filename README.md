@@ -7,7 +7,8 @@ Tools used:
 [Demo Page](http://139.84.220.21:8000/)
 
 Projects built:  
-Minesweeper game and a To-Do app.
+Minesweeper game and a To-Do app.  
+(Source code is in the [demo](https://github.com/bpsundar/tcl_html_dsl/tree/main/demo) folder)
 
 # Code Walk-Through
 
